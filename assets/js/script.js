@@ -1,16 +1,18 @@
 // Store API key here so it can be called easily.
 const apiKey = 'bb2b7f5666002551c33de32d02707e73';
 // Retrieve DOM elements and store so it can be called easily.
-const cityListEl = document.querySelector('#city-list');
-const todayWeatherEl = document.querySelector('#today-weather');
-const forecastEl = document.querySelector('#forecast');
-const day5El = document.getElementById('day5');
+const cityListEl = document.getElementById('city-list'),
+todayWeatherEl = document.getElementById('today-weather'),
+forecastEl = document.getElementById('forecast'),
+day5El = document.getElementById('day5'),
+cityForm = document.getElementById('city-form');
+cityInput = document.getElementById('city-place');
 let cityHistory = JSON.parse(localStorage.getItem('cityList'));
 
 // Create a function that will retrieve a city's latitude and longitude.
 function getCoordinates (city) {
     // Creates a variable that will hold the access link.
-    const apiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(city)}&limit=1&appid=${apiKey}`;
     // Fetch the data stored by the API.
     fetch(apiUrl)
         .then(function (response) {
@@ -35,7 +37,7 @@ function getCoordinates (city) {
 // Creates a function that will retrieve a city's weather forecast for the next 117 hours (in sets of 3 hours in UTC)
 function getWeather (lat, lon) {
     // Create a variable that will hold the access link.
-    const apiUrl = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`;
     // Fetch the data stores by the API.
     fetch(apiUrl)
         .then(function (response) {
@@ -203,8 +205,13 @@ function renderLocation () {
     }
 }
 
+cityForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    getCoordinates(cityInput.value);
+});
+
 cityListEl.addEventListener('click', function (event) {
-    if(event.target.classList.contains('button')) {
+    if(event.target.classList.contains('is-fullwidth')) {
         handlePastCity(event);
     }
 });
