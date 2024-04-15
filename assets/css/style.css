@@ -1,16 +1,20 @@
+/* Add a gradient background to the header banner. */
 header {
     background: linear-gradient(to right, #7755ff, #0077cc);
     padding: 20px;
 }
 
+/* Fix the Bulma last child issue of the box having a larger height. */
 .box:last-child {
     margin-bottom: 1.5rem;
 }
 
+/* Hides the heading until the weather is called upon in the JavaScript. */
 #day5 {
     display: none;
 }
 
+/* Added a bottom margin. */
 form {
     padding-bottom: 25px;
     border-bottom: #7A7A7A solid 1px;
