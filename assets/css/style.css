@@ -1,0 +1,17 @@
+header {
+    background: linear-gradient(to right, #7755ff, #0077cc);
+    padding: 20px;
+}
+
+.box:last-child {
+    margin-bottom: 1.5rem;
+}
+
+#day5 {
+    display: none;
+}
+
+form {
+    padding-bottom: 25px;
+    border-bottom: #7A7A7A solid 1px;
+}
