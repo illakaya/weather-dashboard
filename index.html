@@ -14,30 +14,28 @@
 </head>
 
 <body class="content">
-    <header class="title has-text-centered">Weather Dashboard</header>
+    <header class="title has-text-centered has-text-white">Weather Dashboard</header>
 
-    <div class="columns is-mobile">
+    <div class="columns is-mobile p-3">
         <div class="column
         is-one-quarter-desktop
         is-half-mobile">
             <form class="block">
                 <h2 class="block">Search for a City:</h2>
-                <input class="block" type="text" name="city" id="city" placeholder="Sydney, AU">
+                <input class="block input" type="text" name="city" id="city" placeholder="Sydney, AU">
                 <button class="button is-info block is-fullwidth">Search</button>
             </form>
             <div id="city-list" class="block">
                 <!-- This should be where the buttons of city should appear -->
-                test
             </div>
         </div>
         <main class="column">
-            <div class="block box content">
+            <div id="today-weather" class="block">
                 <!-- Where the current day weather forcast appears -->
-                test
             </div>
-            <div class="block">
+            <h4 id="day5" class="block">5-Day Forecast</h4>
+            <div id="forecast" class="block columns">
                 <!-- Where the 5 day future forecast appears -->
-                test
             </div>
         </main>
     </div>
