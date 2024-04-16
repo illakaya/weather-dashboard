@@ -5,7 +5,7 @@ const cityListEl = document.getElementById('city-list'),
 todayWeatherEl = document.getElementById('today-weather'),
 forecastEl = document.getElementById('forecast'),
 day5El = document.getElementById('day5'),
-cityForm = document.getElementById('city-form');
+cityForm = document.getElementById('city-form'),
 cityInput = document.getElementById('city-place');
 let cityHistory = JSON.parse(localStorage.getItem('cityList'));
 
@@ -111,16 +111,20 @@ function displayWeather (data) {
             forecastEl.appendChild(cardEl);
         }
     }
-
+    // Create a function that will check if the city is already store in localStorage
     function checkCity(cityName) {
+        // by checking the cityHistory array
         return cityHistory.some(function(obj) {
+            // if it contains the cityName, returning a boolean.
             return obj.city.name.includes(cityName);
         })
     }
-
+    // If the city is in the list,
     if (checkCity(data.city.name)) {
+        // end the function,
         return;
     } else {
+        // otherwise, create the button and store the name and coordinates in local storage because I make the recall with a single API call rather than two.
         button(data);
         let cityDetails = {
             city: {
@@ -138,25 +142,22 @@ function displayWeather (data) {
 
 // Create a function that will create a button for users to click to retrieve weather for past searches.
 function button (data) {
-    // Create a button with Bulma classes and append it to the cityList element.
+    // Create a button with Bulma classes and store the city name to it to retrieve later.
     const buttonDiv = document.createElement('div');
     buttonDiv.classList = 'field has-addons is-fullwidth';
-    
     const buttonP1 = document.createElement('p');
     buttonP1.classList = 'control is-expanded';
     const buttonEl1 = document.createElement('button');
     buttonEl1.textContent = data.city.name;
     buttonEl1.classList = 'button block is-fullwidth';
     buttonEl1.setAttribute('city-name', data.city.name.replaceAll(' ', ''));
-    
-    // // This is the delete button.
-
+    // Create a delete button and store the city name to it to retrieve later.
     const buttonP2 = document.createElement('p');
     buttonP2.classList = 'control';
-    
     const buttonEl2 = document.createElement('button');
     buttonEl2.classList = 'delete';
     buttonEl2.setAttribute('city-name', data.city.name.replaceAll(' ', ''));
+    //  Append it to the cityList element.
     buttonP2.appendChild(buttonEl2);
     buttonP1.appendChild(buttonEl1);
     buttonDiv.appendChild(buttonP1);
@@ -193,7 +194,7 @@ function handlePastCity (event) {
     }
 }
 
-// Create a function that will store the cities
+// Create a function that will render the stored the cities if the array exists and is not empty.
 function renderLocation () {
     if (!cityHistory) {
         cityHistory = [];
@@ -205,20 +206,26 @@ function renderLocation () {
     }
 }
 
+// Look for the form submission, prevent the page from refreshing, run the function to retrieve the weather and then empty the form.
 cityForm.addEventListener('submit', function (event) {
     event.preventDefault();
     getCoordinates(cityInput.value);
+    cityInput.value = '';
 });
 
+// Look for a click specifically on the city buttons and then run the function.
 cityListEl.addEventListener('click', function (event) {
     if(event.target.classList.contains('is-fullwidth')) {
         handlePastCity(event);
     }
 });
+
+// Look for a click specifically on the delete buttons and then run the function.
 cityListEl.addEventListener('click', function (event) {
     if(event.target.classList.contains('delete')) {
         handleDeleteCity(event);
     }
 });
 
+// When the page loads, call the function.
 renderLocation();
